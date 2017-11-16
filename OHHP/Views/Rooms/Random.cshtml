@@ -1,0 +1,35 @@
+﻿@using System.Web.Configuration
+@using OHHP.Models
+@model OHHP.ViewModels.RandomRoomViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<
+
+@*  
+    
+how to type comments:
+this is razor view syntax(html mixed with c#).
+
+*@
+@{
+    var className = Model.Patients.Count > 0 ? "popular" : null;
+}
+
+<h2 class="@className">@Model.Room.Name</h2>
+
+@if (Model.Patients.Count == 0)
+{
+    <p>No one has been placed in this room before.</p>
+}
+else
+{
+    <ul>
+        @foreach (var patient in Model.Patients)
+        {
+            <li>@patient.Name</li>
+        }
+    </ul>
+}

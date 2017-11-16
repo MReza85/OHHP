@@ -24,7 +24,7 @@ namespace OHHP
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/Bootstrap-lumen.css",
                       "~/Content/site.css"));
         }
     }
