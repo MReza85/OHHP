@@ -13,6 +13,26 @@ namespace OHHP.Controllers
 {
     public class RoomsController : Controller
     {
+
+        public ViewResult Index()
+        {
+            var rooms = GetRooms();
+            return View(rooms);
+        }
+
+        private IEnumerable<Room> GetRooms()
+        {
+            return new List<Room>
+            {
+                new Room{Id = 1, Name = "A001"},
+                new Room{Id = 2, Name = "A002"}
+            };
+        }
+
+
+
+
+
         #region GET: Rooms/Random
         public ActionResult Random()
         {

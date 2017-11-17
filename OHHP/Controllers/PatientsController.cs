@@ -7,7 +7,7 @@ using OHHP.Models;
 
 namespace OHHP.Controllers
 {
-    public class PatientController : Controller
+    public class PatientsController : Controller
     {
         // GET: Patient
         public ActionResult Index()

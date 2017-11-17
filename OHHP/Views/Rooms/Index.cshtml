@@ -1,0 +1,23 @@
+﻿@model IEnumerable<OHHP.Models.Room> 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rooms</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Room</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var room in Model)
+    {
+        <tr>
+            <td>@room.Name</td>
+        </tr>
+    }
+    </tbody>
+
+</table>
