@@ -9,33 +9,36 @@ namespace OHHP.Controllers
 {
     public class PatientsController : Controller
     {
-        // GET: Patient
+        //Needed to access the database
+        private ApplicationDbContext _context;
+
+        //Constructor to intilize an instans of the connection?
+        public PatientsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+        //Db contex is a disposable object so to dispose it we need this method
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        
         public ActionResult Index()
         {
-            var patients = GetPatients();
+            var patients = _context.Patients.ToList();
             return View(patients);
         }
 
         public ActionResult Details(int id)
         {
             // Get patient details that has the specific Id
-            var patient = GetPatients().SingleOrDefault(c => c.Id == id);
+            var patient = _context.Patients.SingleOrDefault(c => c.Id == id);
             // If there no patients registered
             if (patient == null)
                 return HttpNotFound();
             return View(patient);
         }
 
-        // Creating a list of patients for testing
-        // Temp Code
-        private IEnumerable<Patient> GetPatients()
-        {
-            return new List<Patient>
-            {
-                new Patient {Id = 1, Name = "Reza Shahbazi"},
-                new Patient{Id = 2, Name = "John Doe"}
-
-            };
-        }
     }
 }
