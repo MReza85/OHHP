@@ -33,15 +33,15 @@ else
         <thead>
         <tr>
             <th>Patient</th>
+            <th>Membership</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var patient in Model)
         {
             <tr>
-                <td>
-                    @Html.ActionLink(patient.Name,"Details", "Patients", new { id=patient.Id },null)
-                </td>
+                <td>@Html.ActionLink(patient.Name,"Details", "Patients", new { id=patient.Id },null)</td>
+                <td>@patient.MembershipType.Name</td>
             </tr>
         }
         </tbody>

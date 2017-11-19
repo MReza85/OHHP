@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -26,14 +27,14 @@ namespace OHHP.Controllers
         
         public ActionResult Index()
         {
-            var patients = _context.Patients.ToList();
+            var patients = _context.Patients.Include(c=>c.MembershipType).ToList();
             return View(patients);
         }
 
         public ActionResult Details(int id)
         {
             // Get patient details that has the specific Id
-            var patient = _context.Patients.SingleOrDefault(c => c.Id == id);
+            var patient = _context.Patients.Include(c=>c.MembershipType).SingleOrDefault(c => c.Id == id);
             // If there no patients registered
             if (patient == null)
                 return HttpNotFound();
