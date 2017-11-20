@@ -9,11 +9,19 @@ namespace OHHP.Models
     public class Patient
     {
         public int Id { get; set; }
-        [Required]
-        [StringLength(255)]
+
+        [Required] // DataAnnotation for making columns of "Name" not nullable
+        [StringLength(255)] //DataAnn.. for setting stringlength max to 255.
         public string Name { get; set; }
+
         public bool IsSubscirbedToNewsletter { get; set; }
-        public MembershipType MembershipType { get; set; }
-        public byte MembershipTypeId { get; set; }
+
+        public MembershipType MembershipType { get; set; } //Navigation Property, navigation from one type to another, patient -> MembershipType
+
+        public byte MembershipTypeId { get; set; } //treats this property as foreign key.
+
+        [Required]// DataAnn... for making columns of "Birthdate" not nullable
+        public DateTime Birthdate { get; set; }
+        
     }
 }
