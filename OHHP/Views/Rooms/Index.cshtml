@@ -10,7 +10,7 @@
         <tr>
             <th>Room</th>
             <th>Room Type</th>
-            <th>Number of Beds</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -19,7 +19,6 @@
         <tr>
             <td>@Html.ActionLink(room.Name, "Details", "Rooms", new { id = room.Id }, null)</td>
             <td>@room.RoomType.Name</td>
-            <td>@room.NumberOfBeds</td>
         </tr>
     }
     </tbody>
