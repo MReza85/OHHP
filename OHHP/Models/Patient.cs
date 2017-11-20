@@ -17,7 +17,6 @@ namespace OHHP.Models
         public bool IsSubscirbedToNewsletter { get; set; }
 
         public MembershipType MembershipType { get; set; } //Navigation Property, navigation from one type to another, patient -> MembershipType
-
         public byte MembershipTypeId { get; set; } //treats this property as foreign key.
 
         [Required]// DataAnn... for making columns of "Birthdate" not nullable

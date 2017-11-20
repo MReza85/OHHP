@@ -7,30 +7,57 @@ using System.Web;
 using System.Web.Mvc;
 using OHHP.Models;
 using OHHP.ViewModels;
+using System.Data.Entity;
 using WebGrease.Css;
 
 namespace OHHP.Controllers
 {
     public class RoomsController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public RoomsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
         public ViewResult Index()
         {
-            var rooms = GetRooms();
+            var rooms = _context.Rooms.Include(r => r.RoomType).ToList();
             return View(rooms);
         }
-
-        private IEnumerable<Room> GetRooms()
+        public ActionResult Details(int id)
         {
-            return new List<Room>
-            {
-                new Room{Id = 1, Name = "A001"},
-                new Room{Id = 2, Name = "A002"}
-            };
+           
+            var room = _context.Rooms.Include(r => r.RoomType).SingleOrDefault(r => r.Id == id);
+            if (room == null)
+                return HttpNotFound();
+            return View(room);
         }
 
 
 
+
+
+
+
+
+
+        #region IEnumerable local hardcoded
+        //private IEnumerable<Room> GetRooms()
+        //{
+        //    return new List<Room>
+        //    {
+        //        new Room{Id = 1, Name = "A001"},
+        //        new Room{Id = 2, Name = "A002"}
+        //    };
+        //}
+        #endregion
 
 
         #region GET: Rooms/Random
@@ -83,9 +110,6 @@ namespace OHHP.Controllers
         #endregion
 
 
-
-
-
         #region Old Route Test?
         /*
         public ActionResult Edit(int Id)
@@ -95,8 +119,6 @@ namespace OHHP.Controllers
         */
         #endregion
 
-
-        // rooms
 
         #region Två olika sätt o göra index null check
         /*

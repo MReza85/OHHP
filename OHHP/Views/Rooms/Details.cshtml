@@ -1,0 +1,12 @@
+﻿@model OHHP.Models.Room 
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+       <li>Room type: @Model.RoomType.Name</li>
+       <li>Number in Stock: @Model.NumberOfBeds</li>
+</ul>
+
