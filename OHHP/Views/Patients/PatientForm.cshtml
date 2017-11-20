@@ -1,10 +1,10 @@
 ﻿@model OHHP.ViewModels.PatientFormViewModel
 @{
-    ViewBag.Title = "New/Edit";
+    ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New/Edit Patient</h2>
+<h2>@Model.Title</h2>
 
 @using (Html.BeginForm("Save", "Patients"))
 {

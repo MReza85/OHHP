@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using OHHP.Models;
 using OHHP.ViewModels;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using WebGrease.Css;
 
 namespace OHHP.Controllers
@@ -31,6 +32,61 @@ namespace OHHP.Controllers
             var rooms = _context.Rooms.Include(r => r.RoomType).ToList();
             return View(rooms);
         }
+
+
+        public ActionResult New()
+        {
+            //Generate list so that we can put the list in to dropdown box.
+            var roomtypes = _context.RoomTypes.ToList();
+
+            //Watch Moshs explaination about this part again
+            var viewModel = new RoomFormViewModel
+            {
+                RoomTypes = roomtypes
+            };
+
+            return View("RoomForm", viewModel);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            //Get room id
+            var room = _context.Rooms.SingleOrDefault(r => r.Id == id);
+            //If room id == null
+            if (room == null)
+                return HttpNotFound();
+            //Get room details.
+            var viewModel= new RoomFormViewModel
+            {
+                Room = room,
+                RoomTypes = _context.RoomTypes.ToList()
+            };
+            return View("RoomForm",viewModel);
+        }
+        
+        [HttpPost]
+        public ActionResult Save(Room room)
+        {
+            //If room doesn't exist, add a new room
+            if (room.Id == 0)
+                _context.Rooms.Add(room);
+
+            //If it does exist, update the columns in database.
+            else
+            {
+                var roomInDb = _context.Rooms.Single(r => r.Id == room.Id);
+                roomInDb.Name = room.Name;
+                roomInDb.RoomTypeId = room.RoomTypeId;
+                roomInDb.NumberOfBeds = room.NumberOfBeds;
+            }
+
+                _context.SaveChanges();
+           
+
+            return RedirectToAction("Index","Rooms");
+        }
+
+     
         public ActionResult Details(int id)
         {
            

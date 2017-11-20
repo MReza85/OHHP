@@ -10,5 +10,16 @@ namespace OHHP.ViewModels
     {
         public IEnumerable<MembershipType> MembershipTypes { get; set; }
         public Patient Patient { get; set; }
+
+        public string Title
+        {
+            get
+            {
+                if (Patient != null && Patient.Id != 0)
+                    return "Edit Patient";
+
+                return "New Patient";
+            }
+        }
     }
 }

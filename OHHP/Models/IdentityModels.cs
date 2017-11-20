@@ -20,9 +20,11 @@ namespace OHHP.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Patient> Patients { get; set; }
-        public DbSet<Room> Rooms { get; set; }
+        //This is so our ApplicationDbContext can access db.
+        public DbSet <Patient> Patients { get; set; }
+        public DbSet <Room> Rooms { get; set; }
         public DbSet <MembershipType> MembershipTypes { get; set; }
+        public DbSet <RoomType> RoomTypes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

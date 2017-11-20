@@ -15,8 +15,9 @@ namespace OHHP.Models
         [StringLength(255)]
         public string Name { get; set; }
        
-        [Required]
+        [Display(Name = "Room type")]
         public RoomType RoomType { get; set; }
+        [Required]
         public byte RoomTypeId { get; set; }
 
         [Range(1,5)]

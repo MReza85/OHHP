@@ -1,10 +1,14 @@
 ﻿@model IEnumerable<OHHP.Models.Room> 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rooms";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Rooms</h2>
+<p>
+    @Html.ActionLink("New Room", "New", "Rooms", null, new {@class="btn btn-primary"})
+</p>
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -17,7 +21,7 @@
     @foreach (var room in Model)
     {
         <tr>
-            <td>@Html.ActionLink(room.Name, "Details", "Rooms", new { id = room.Id }, null)</td>
+            <td>@Html.ActionLink(room.Name, "Edit", "Rooms", new { id = room.Id }, null)</td>
             <td>@room.RoomType.Name</td>
         </tr>
     }
