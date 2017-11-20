@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OHHP.Models;
+using OHHP.ViewModels;
 
 namespace OHHP.Controllers
 {
@@ -24,7 +25,50 @@ namespace OHHP.Controllers
             _context.Dispose();
         }
 
-        
+        public ActionResult New()
+        {
+            var membershiptypes = _context.MembershipTypes.ToList();
+            var viewModel = new PatientFormViewModel
+            {
+                MembershipTypes = membershiptypes
+            };
+            return View("PatientForm",viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Patient patient)
+        {
+            if (patient.Id == 0)
+                _context.Patients.Add(patient);
+            else
+            {
+                var patientInDb = _context.Patients.Single(c => c.Id == patient.Id);
+
+                patientInDb.Name = patient.Name;
+                patientInDb.Birthdate = patient.Birthdate;
+                patientInDb.Journal = patient.Journal;
+                patientInDb.MembershipTypeId = patient.MembershipTypeId;
+                patientInDb.IsSubscirbedToNewsletter = patient.IsSubscirbedToNewsletter;
+
+            }
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index", "Patients");
+        }
+
+        //public ActionResult New(Patient patient)
+        //{
+            
+        //        _context.Patients.Add(patient);
+        //        _context.SaveChanges();
+
+
+        //    return RedirectToAction("Index", "Patients");
+        //}
+
+
         public ActionResult Index()
         {
             var patients = _context.Patients.Include(c=>c.MembershipType).ToList();
@@ -41,5 +85,18 @@ namespace OHHP.Controllers
             return View(patient);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var patient = _context.Patients.SingleOrDefault(c => c.Id == id);
+
+            if (patient == null)
+                return HttpNotFound();
+            var viewModel=new PatientFormViewModel
+            {
+                Patient = patient,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View("PatientForm", viewModel);
+        }
     }
 }

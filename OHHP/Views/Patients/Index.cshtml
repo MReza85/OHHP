@@ -23,6 +23,10 @@
 }
 
 <h2>Patients</h2>
+<p>
+    @Html.ActionLink("New", "New","Patients", new{@class="btn btn-primary"})
+</p>
+
 @if (!Model.Any())
 {
     <p>We don't have any customers yet.</p>
@@ -40,7 +44,7 @@ else
         @foreach (var patient in Model)
         {
             <tr>
-                <td>@Html.ActionLink(patient.Name,"Details", "Patients", new { id=patient.Id },null)</td>
+                <td>@Html.ActionLink(patient.Name,"Edit", "Patients", new { id=patient.Id },null)</td>
                 <td>@patient.MembershipType.Name</td>
             </tr>
         }

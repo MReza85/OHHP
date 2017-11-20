@@ -22,6 +22,7 @@ namespace OHHP.Models
     {
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet <MembershipType> MembershipTypes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

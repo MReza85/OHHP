@@ -21,6 +21,7 @@ namespace OHHP.Models
 
         [Range(1,5)]
         [Required]
+        [Display(Name = "Number of patient beds")]
         public byte NumberOfBeds { get; set; }
 
     }
