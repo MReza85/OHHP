@@ -9,36 +9,36 @@
 @using (Html.BeginForm("Save", "Patients"))
 {
     @Html.ValidationSummary()
+   
     <div class="form-group">
-        @Html.LabelFor(m => m.Patient.Name)
-        @Html.TextBoxFor(m => m.Patient.Name, new { @class="form-control" })
-        @Html.ValidationMessageFor(m=>m.Patient.Name)
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class="form-control" })
+        @Html.ValidationMessageFor(m=>m.Name)
     </div> 
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Patient.Birthdate)
-        @Html.TextBoxFor(m => m.Patient.Birthdate, "{0:MM/dd/yyyy}", new {@class ="form-control", placeholder=@Html.DisplayName("dd/mm/yyyy")})
-        @Html.ValidationMessageFor(m=>m.Patient.Birthdate)
+        @Html.LabelFor(m => m.Birthdate)
+        @Html.TextBoxFor(m => m.Birthdate, "{0:MM/dd/yyyy}", new {@class ="form-control", placeholder=@Html.DisplayName("dd/mm/yyyy")})
+        @Html.ValidationMessageFor(m=>m.Birthdate)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m=>m.Patient.Journal)
-        @Html.TextAreaFor(m => m.Patient.Journal, new {@class = "form-control", style= "width: 400px; max-width: 100%; min-width:20%; height:200px;" })
+        @Html.LabelFor(m=>m.Journal)
+        @Html.TextAreaFor(m => m.Journal, new {@class = "form-control", style= "width: 400px; max-width: 100%; min-width:20%; height:200px;" })
     </div>
   
     <div class="form-group">
-        @Html.LabelFor(m => m.Patient.MembershipTypeId)
-        @Html.DropDownListFor(m => m.Patient.MembershipTypeId, new SelectList(Model.MembershipTypes,"Id","Name"), "Select Membership Type", new { @class = "form-control"})
-        @Html.ValidationMessageFor(m=>m.Patient.MembershipTypeId)
+        @Html.LabelFor(m => m.MembershipTypeId)
+        @Html.DropDownListFor(m => m.MembershipTypeId, new SelectList(Model.MembershipTypes,"Id","Name"), "Select Membership Type", new { @class = "form-control"})
+        @Html.ValidationMessageFor(m=>m.MembershipTypeId)
     </div>
     
     <div class="checkbox">
         <label>
-            @Html.CheckBoxFor(m => m.Patient.IsSubscirbedToNewsletter) Subscribed to Newsletter?
+            @Html.CheckBoxFor(m => m.IsSubscirbedToNewsletter) Subscribed to Newsletter?
         </label>
     </div>
-
-    @Html.HiddenFor(m=>m.Patient.Id)
-
+    @Html.HiddenFor(m=>m.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 
 }

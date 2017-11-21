@@ -10,25 +10,25 @@
 {
     @Html.ValidationSummary()
     <div class="form-group">
-        @Html.LabelFor(r=>r.Room.Name)
-        @Html.TextBoxFor(r=>r.Room.Name, new{@class="form-control"})
-        @Html.ValidationMessageFor(r=>r.Room.Name)
+        @Html.LabelFor(r => r.Name)
+        @Html.TextBoxFor(r => r.Name, new {@class = "form-control"})
+        @Html.ValidationMessageFor(r => r.Name)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(r => r.Room.RoomTypeId)
-        @Html.DropDownListFor(r => r.Room.RoomTypeId, 
-            new SelectList(Model.RoomTypes, "Id", "Name"), "Select room type", 
+        @Html.LabelFor(r => r.RoomTypeId)
+        @Html.DropDownListFor(r => r.RoomTypeId,
+            new SelectList(Model.RoomTypes, "Id", "Name"), "Select room type",
             new {@class = "form-control"})
-        @Html.ValidationMessageFor(r => r.Room.RoomTypeId)
+        @Html.ValidationMessageFor(r => r.RoomTypeId)
     </div>
     <div class="form-group">
-        @Html.LabelFor(r => r.Room.NumberOfBeds)
-        @Html.TextBoxFor(r => r.Room.NumberOfBeds, new { @class = "form-control" })
-        @Html.ValidationMessageFor(r => r.Room.NumberOfBeds)
+        @Html.LabelFor(r => r.NumberOfBeds)
+        @Html.TextBoxFor(r => r.NumberOfBeds, new {@class = "form-control"})
+        @Html.ValidationMessageFor(r => r.NumberOfBeds)
     </div>
-    @Html.HiddenFor(r=>r.Room.Id)
-
+    @Html.HiddenFor(r => r.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }
 @section scripts

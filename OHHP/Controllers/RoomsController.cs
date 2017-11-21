@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Web;
 using System.Web.Mvc;
 using OHHP.Models;
 using OHHP.ViewModels;
-using System.Data.Entity;
-using System.Data.Entity.Validation;
-using WebGrease.Css;
 
 namespace OHHP.Controllers
 {
     public class RoomsController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public RoomsController()
         {
@@ -42,7 +36,6 @@ namespace OHHP.Controllers
             //Watch Moshs explaination about this part again
             var viewModel = new RoomFormViewModel
             {
-                Room = new Room(),
                 RoomTypes = roomtypes
             };
 
@@ -57,29 +50,30 @@ namespace OHHP.Controllers
             if (room == null)
                 return HttpNotFound();
             //Get room details.
-            var viewModel= new RoomFormViewModel
+            var viewModel = new RoomFormViewModel(room)
             {
-                Room = room,
                 RoomTypes = _context.RoomTypes.ToList()
             };
-            return View("RoomForm",viewModel);
+            return View("RoomForm", viewModel);
         }
-        
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Room room)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel=new RoomFormViewModel
+                var viewModel = new RoomFormViewModel(room)
                 {
-                    Room = room,
                     RoomTypes = _context.RoomTypes.ToList()
                 };
                 return View("RoomForm", viewModel);
             }
             //If room doesn't exist, add a new room
             if (room.Id == 0)
+            {
                 _context.Rooms.Add(room);
+            }
 
             //If it does exist, update the columns in database.
             else
@@ -90,16 +84,15 @@ namespace OHHP.Controllers
                 roomInDb.NumberOfBeds = room.NumberOfBeds;
             }
 
-                _context.SaveChanges();
-           
+            _context.SaveChanges();
 
-            return RedirectToAction("Index","Rooms");
+
+            return RedirectToAction("Index", "Rooms");
         }
 
-     
+
         public ActionResult Details(int id)
         {
-           
             var room = _context.Rooms.Include(r => r.RoomType).SingleOrDefault(r => r.Id == id);
             if (room == null)
                 return HttpNotFound();
@@ -107,14 +100,8 @@ namespace OHHP.Controllers
         }
 
 
-
-
-
-
-
-
-
         #region IEnumerable local hardcoded
+
         //private IEnumerable<Room> GetRooms()
         //{
         //    return new List<Room>
@@ -123,17 +110,19 @@ namespace OHHP.Controllers
         //        new Room{Id = 2, Name = "A002"}
         //    };
         //}
+
         #endregion
 
 
         #region GET: Rooms/Random
+
         public ActionResult Random()
         {
-            var room = new Room() { Name = "A001" };
+            var room = new Room {Name = "A001"};
             var patients = new List<Patient>
             {
-                new Patient{Name = "Patient 1"},
-                new Patient{Name = "Patient 2"}
+                new Patient {Name = "Patient 1"},
+                new Patient {Name = "Patient 2"}
             };
 
             var viewModel = new RandomRoomViewModel
@@ -156,37 +145,36 @@ namespace OHHP.Controllers
             // return RedirectToAction("Index", "Home", new { page=1, sortBy="name" } );
 
             #endregion
-
-
         }
-
 
         #endregion
 
 
         #region Rooms/Department/{departmentName}
+
         [Route("Rooms/department/{dep}")]
         public ActionResult Department(string dep)
         {
-
             return Content("Room is in department: " + dep);
         }
-
 
         #endregion
 
 
         #region Old Route Test?
+
         /*
         public ActionResult Edit(int Id)
         {
             return Content("id=" + Id);
         }
         */
+
         #endregion
 
 
         #region Två olika sätt o göra index null check
+
         /*
          public ActionResult Index(int? pageIndex, String sortBy)
          {
@@ -205,9 +193,6 @@ namespace OHHP.Controllers
         }
         */
 
-
         #endregion
-
-
     }
 }

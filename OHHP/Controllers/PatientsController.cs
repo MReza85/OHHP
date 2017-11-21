@@ -30,7 +30,6 @@ namespace OHHP.Controllers
             var membershiptypes = _context.MembershipTypes.ToList();
             var viewModel = new PatientFormViewModel
             {
-                Patient = new Patient(),
                 MembershipTypes = membershiptypes
             };
             return View("PatientForm",viewModel);
@@ -39,13 +38,14 @@ namespace OHHP.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken] // Skyddar mot CSRF attack ( Cross-site Request Forgery )
         public ActionResult Save(Patient patient)
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new PatientFormViewModel
+                var viewModel = new PatientFormViewModel(patient)
                 {
-                    Patient = patient,
+                    
                     MembershipTypes = _context.MembershipTypes.ToList()
                 };
 
@@ -104,10 +104,10 @@ namespace OHHP.Controllers
 
             if (patient == null)
                 return HttpNotFound();
-            var viewModel=new PatientFormViewModel
+            var viewModel=new PatientFormViewModel(patient)
             {
-                Patient = patient,
-                MembershipTypes = _context.MembershipTypes.ToList()
+               
+               MembershipTypes = _context.MembershipTypes.ToList()
             };
             return View("PatientForm", viewModel);
         }
