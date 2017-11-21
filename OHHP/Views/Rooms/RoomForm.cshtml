@@ -8,9 +8,11 @@
 
 @using (Html.BeginForm("Save", "Rooms"))
 {
+    @Html.ValidationSummary()
     <div class="form-group">
         @Html.LabelFor(r=>r.Room.Name)
         @Html.TextBoxFor(r=>r.Room.Name, new{@class="form-control"})
+        @Html.ValidationMessageFor(r=>r.Room.Name)
     </div>
 
     <div class="form-group">
@@ -18,10 +20,12 @@
         @Html.DropDownListFor(r => r.Room.RoomTypeId, 
             new SelectList(Model.RoomTypes, "Id", "Name"), "Select room type", 
             new {@class = "form-control"})
+        @Html.ValidationMessageFor(r => r.Room.RoomTypeId)
     </div>
     <div class="form-group">
         @Html.LabelFor(r => r.Room.NumberOfBeds)
         @Html.TextBoxFor(r => r.Room.NumberOfBeds, new { @class = "form-control" })
+        @Html.ValidationMessageFor(r => r.Room.NumberOfBeds)
     </div>
     @Html.HiddenFor(r=>r.Room.Id)
 

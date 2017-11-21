@@ -30,6 +30,7 @@ namespace OHHP.Controllers
             var membershiptypes = _context.MembershipTypes.ToList();
             var viewModel = new PatientFormViewModel
             {
+                Patient = new Patient(),
                 MembershipTypes = membershiptypes
             };
             return View("PatientForm",viewModel);

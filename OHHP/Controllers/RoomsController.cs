@@ -42,6 +42,7 @@ namespace OHHP.Controllers
             //Watch Moshs explaination about this part again
             var viewModel = new RoomFormViewModel
             {
+                Room = new Room(),
                 RoomTypes = roomtypes
             };
 
@@ -67,6 +68,15 @@ namespace OHHP.Controllers
         [HttpPost]
         public ActionResult Save(Room room)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel=new RoomFormViewModel
+                {
+                    Room = room,
+                    RoomTypes = _context.RoomTypes.ToList()
+                };
+                return View("RoomForm", viewModel);
+            }
             //If room doesn't exist, add a new room
             if (room.Id == 0)
                 _context.Rooms.Add(room);
