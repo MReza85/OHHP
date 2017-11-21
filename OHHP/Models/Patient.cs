@@ -11,7 +11,7 @@ namespace OHHP.Models
     {
         public int Id { get; set; }
 
-        [Required] // DataAnnotation for making columns of "Name" not nullable
+        [Required(ErrorMessage = "Please enter patient's name.")] // DataAnnotation for making columns of "Name" not nullable
         [StringLength(255)] //DataAnn.. for setting stringlength max to 255.
         public string Name { get; set; }
 
@@ -20,9 +20,10 @@ namespace OHHP.Models
         public MembershipType MembershipType { get; set; } //Navigation Property, navigation from one type to another, patient -> MembershipType
 
         [Display(Name = "Membership")]
+        [Required(ErrorMessage = "Please select membership.")]
         public byte MembershipTypeId { get; set; } //treats this property as foreign key.
 
-        [Required]// DataAnn... for making columns of "Birthdate" not nullable
+        [Required(ErrorMessage = "Please enter patient's date of birth.")]// DataAnn... for making columns of "Birthdate" not nullable
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]

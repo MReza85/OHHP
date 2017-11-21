@@ -35,9 +35,21 @@ namespace OHHP.Controllers
             return View("PatientForm",viewModel);
         }
 
+
+
         [HttpPost]
         public ActionResult Save(Patient patient)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new PatientFormViewModel
+                {
+                    Patient = patient,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("PatientForm",viewModel);
+            }
             if (patient.Id == 0)
                 _context.Patients.Add(patient);
             else
