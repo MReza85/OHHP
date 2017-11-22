@@ -84,8 +84,7 @@ namespace OHHP.Controllers
 
         public ActionResult Index()
         {
-            var patients = _context.Patients.Include(c=>c.MembershipType).ToList();
-            return View(patients);
+            return View();
         }
 
         public ActionResult Details(int id)
