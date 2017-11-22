@@ -29,21 +29,21 @@ namespace OHHP.Controllers.Api
 
         //Get /api/patient/1
 
-        public PatientDto GetPatient(int id)
+        public IHttpActionResult GetPatient(int id)
         {
             var patient = _context.Patients.SingleOrDefault(c => c.Id == id);
 
-            if(patient==null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            return Mapper.Map<Patient, PatientDto>(patient);
+            if (patient == null)
+                return NotFound();
+            return Ok( Mapper.Map<Patient, PatientDto>(patient));
         }
 
         //Post /api/patients
         [HttpPost]
-        public PatientDto CreatePatient(PatientDto patientDto)
+        public IHttpActionResult CreatePatient(PatientDto patientDto)
         {
-            if(!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             var patient = Mapper.Map<PatientDto, Patient>(patientDto);
             _context.Patients.Add(patient);
@@ -51,7 +51,7 @@ namespace OHHP.Controllers.Api
 
             patientDto.Id = patient.Id;
 
-            return patientDto;
+            return Created(new Uri(Request.RequestUri + "/"+ patient.Id.ToString()), patientDto);
         }
 
         //Put /api/patient/1

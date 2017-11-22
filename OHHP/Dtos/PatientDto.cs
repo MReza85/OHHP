@@ -23,7 +23,6 @@ namespace OHHP.Dtos
         public byte MembershipTypeId { get; set; } //treats this property as foreign key.
 
         [Required(ErrorMessage = "Please enter patient's date of birth.")]// DataAnn... for making columns of "Birthdate" not nullable
-        
         public DateTime Birthdate { get; set; }
         public string Journal { get; set; }
     }
