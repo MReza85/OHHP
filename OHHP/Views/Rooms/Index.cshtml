@@ -9,22 +9,79 @@
     @Html.ActionLink("New Room", "New", "Rooms", null, new {@class="btn btn-primary"})
 </p>
 
-<table class="table table-bordered table-hover">
+<table id="rooms" class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>Room</th>
             <th>Room Type</th>
+            <th>Delete</th>
             
         </tr>
     </thead>
     <tbody>
-    @foreach (var room in Model)
+    @*   @foreach (var room in Model)
     {
         <tr>
             <td>@Html.ActionLink(room.Name, "Edit", "Rooms", new { id = room.Id }, null)</td>
             <td>@room.RoomType.Name</td>
         </tr>
     }
+    *@
     </tbody>
 
 </table>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#rooms").DataTable({
+                ajax: {
+                    url: "/api/rooms",
+                    dataSrc: ""
+
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function(data, type, room) {
+                            return "<a href='/rooms/edit/" + room.id + "'>" + room.name + "</a>";
+                             
+                        }
+                    },
+                    {
+                        data: "roomType.name"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return"<button class='btn-link js-delete' data-room-id=" + data + ">Delete</button>";
+                        }
+                    }
+                ]
+            });
+
+
+            $("#rooms").on("click", ".js-delete", function () {
+                var button = $(this);
+
+
+                bootbox.confirm("Are you sure you want to delete this room?",
+                    function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/api/rooms/" + button.attr("data-room-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                }
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
+}

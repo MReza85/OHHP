@@ -23,8 +23,8 @@ namespace OHHP.Controllers
 
         public ViewResult Index()
         {
-            var rooms = _context.Rooms.Include(r => r.RoomType).ToList();
-            return View(rooms);
+           // var rooms = _context.Rooms.Include(r => r.RoomType).ToList();
+            return View();
         }
 
 

@@ -17,7 +17,7 @@ namespace OHHP.App_Start
             Mapper.CreateMap<Patient, PatientDto>();
             Mapper.CreateMap<Room, RoomDto>();
             Mapper.CreateMap<MembershipType, MembershipTypeDto>();
-
+            Mapper.CreateMap<RoomType, RoomTypeDto>();
             // Dto to Domain
 
             Mapper.CreateMap<PatientDto, Patient>()

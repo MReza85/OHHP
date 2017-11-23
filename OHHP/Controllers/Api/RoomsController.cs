@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -19,9 +20,14 @@ namespace OHHP.Controllers.Api
              _context = new ApplicationDbContext();
          }
         //Get /api/rooms
-        public IEnumerable<RoomDto> GetRooms()
+        public IHttpActionResult GetRooms()
          {
-             return _context.Rooms.ToList().Select(Mapper.Map<Room, RoomDto>);
+            var roomDtos =_context.Rooms
+                .Include(r => r.RoomType)
+                .ToList()
+                .Select(Mapper.Map<Room, RoomDto>);
+
+             return Ok(roomDtos);
          }
 
          public IHttpActionResult GetRoom(int id)

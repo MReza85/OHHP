@@ -213,6 +213,7 @@
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\PatientDto.cs" />
     <Compile Include="Dtos\RoomDto.cs" />
+    <Compile Include="Dtos\RoomTypeDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

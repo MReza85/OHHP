@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using OHHP.Models;
 
 namespace OHHP.Dtos
 {
@@ -17,6 +18,8 @@ namespace OHHP.Dtos
 
         [Required(ErrorMessage = "Please choose room type.")]
         public byte RoomTypeId { get; set; }
+
+        public RoomTypeDto RoomType { get; set; }
 
         [Range(1, 5, ErrorMessage = "Room requires between 1 to 5 beds")]
         [Required(ErrorMessage = "Please enter amount of beds in the room.")]

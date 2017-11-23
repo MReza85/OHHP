@@ -40,6 +40,7 @@ else
     <thead>
     <tr>
         <th>Patient</th>
+        <th>Patient Birthdate</th>
         <th>Membership</th>
         <th>Delete</th>
     </tr>
@@ -63,23 +64,28 @@ else
 
 
 @section scripts
+   
 {
+    
     <script>
         $(document).ready(function () {
-         var table = $("#patients").DataTable({
-                ajax: {
-                    url: "/api/patients",
-                    dataSrc: ""
+                var table = $("#patients").DataTable({
+                    ajax: {
+                        url: "/api/patients",
+                        dataSrc: ""
 
-                },
-                columns: [
-                    {
-                        data: "name",
-                        render: function(data, type, patient) {
-                            return "<a href='/patients/edit/" + patient.id + "'>" + patient.name + "</a>";
-                             
-                        }
                     },
+                    columns: [
+                        {
+                            data: "name",
+                            render: function(data, type, patient) {
+                                return "<a href='/patients/edit/" + patient.id + "'>" + patient.name + "</a>";
+
+                            }
+                        },
+                        {
+                            data: "birthdate"
+                         },
                     {
                         data: "membershipType.name"
                     },
@@ -109,8 +115,16 @@ else
                         });
                     }
                     });
+
             });
+
+
+
+
+
+
         });
+
     </script>
 }
 
