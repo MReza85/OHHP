@@ -39,6 +39,7 @@ else
 <table id="patients" class="table table-bordered table-hover">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Patient</th>
         <th>Patient Birthdate</th>
         <th>Membership</th>
@@ -68,30 +69,41 @@ else
 {
     
     <script>
-        $(document).ready(function () {
-                var table = $("#patients").DataTable({
-                    ajax: {
-                        url: "/api/patients",
-                        dataSrc: ""
+        $(document).ready(function() {
+            var table = $("#patients").DataTable({
+                ajax: {
+                    url: "/api/patients",
+                    dataSrc: ""
 
+                },
+                columns: [
+
+                    {
+                        data: "id"
                     },
-                    columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, patient)
                         {
-                            data: "name",
-                            render: function(data, type, patient) {
-                                return "<a href='/patients/edit/" + patient.id + "'>" + patient.name + "</a>";
+                            return "<a href='/patients/edit/" + patient.id + "'>" + patient.name + "</a>";
 
-                            }
-                        },
+                        }
+                    },
+                    {
+                        data: "birthdate",
+                        render: function (data)
+
                         {
-                            data: "birthdate"
-                         },
+                            return moment(data).format("YYYY-MM-DD");
+                        }
+                        },
                     {
                         data: "membershipType.name"
                     },
                     {
                         data: "id",
-                        render: function(data) {
+                        render: function(data) 
+                        {
                             return"<button class='btn-link js-delete' data-patient-id=" + data + ">Delete</button>";
                         }
                     }
@@ -134,4 +146,3 @@ else
                             
                        
    
-}

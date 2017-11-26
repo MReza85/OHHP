@@ -11,7 +11,6 @@ namespace OHHP.Models
         public byte Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public bool IsMember { get; set; }
         public byte DiscountRate { get; set; }
     }
 }

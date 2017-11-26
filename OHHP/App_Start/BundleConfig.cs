@@ -14,7 +14,8 @@ namespace OHHP
                              "~/scripts/bootbox.js",
                             "~/Scripts/respond.js",
                             "~/scripts/datatables/jquery.datatables.js",
-                            "~/scripts/datatables/datatables.bootstrap.js"
+                            "~/scripts/datatables/datatables.bootstrap.js",
+                            "~/scripts/moment.js"
                               ));
        
 

@@ -27,8 +27,8 @@ namespace OHHP.ViewModels
         [Required(ErrorMessage = "Please enter patient's date of birth.")]// DataAnn... for making columns of "Birthdate" not nullable
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? Birthdate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
+        public DateTime Birthdate { get; set; }
 
         public string Journal { get; set; }
 
