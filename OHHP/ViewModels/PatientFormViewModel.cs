@@ -28,7 +28,7 @@ namespace OHHP.ViewModels
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
         public string Journal { get; set; }
 
